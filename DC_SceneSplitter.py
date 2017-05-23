@@ -4,6 +4,11 @@ Python 3
 colebob9
 
 This script takes scene files in a "scenes" directory and splits them up based on any benchmark score.
+
+TODO:
+Add messages for copying files
+Some extra tweaks to calculating SSP if the benchmark scores are too far from each other
+Tweak messages
 """
 
 import json
@@ -14,13 +19,13 @@ from collections import OrderedDict
 
 # Config
 
-sceneName = "Chunky Test"
+sceneName = "ChunkyTest"
 scenesDir = "scenes/"
 
 scenesForWorkersDir = "DC_ScenesForWorkers"
 deleteScenesForWorkersDir = True
 
-benchmarkResults = {"i7-4790K": 11197, "Pentium G645": 2598, "i5-4690": 7599} # <- actual benchmarks
+benchmarkResults = {"i7-4790K": 11197, "Pentium G645": 2598, "i5-4690": 7599, "TestClient": 432} # <- actual benchmarks
 #benchmarkResults = {"i7-4790K": 432, "Pentium G645": 543, "i5-4690": 674} # <- made up tests
 
 
@@ -85,7 +90,6 @@ if not sspAdded == sspTarget:
     print("Something went wrong, the numbers dont add up right.\nReport this as an issue on GitHub please.")
     print(sspAdded, "=/=", sspTarget)
     exit()
-    
     
 #
 # Splitting scene file into separate scenes for each PC
