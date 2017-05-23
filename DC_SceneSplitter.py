@@ -1,8 +1,9 @@
 """
+DistChunky SceneSplitter
+Python 3
+colebob9
 
-https://www.tutorialspoint.com/python3/python_dictionary.htm
-
-
+This script takes scene files in a "scenes" directory and splits them up based on any benchmark score.
 """
 
 import json
@@ -19,8 +20,8 @@ scenesDir = "scenes/"
 scenesForWorkersDir = "DC_ScenesForWorkers"
 deleteScenesForWorkersDir = True
 
-#benchmarkResults = {"i7-4790K": 11197, "Pentium G645": 2598, "i5-4690": 7599} # <- actual benchmarks
-benchmarkResults = {"i7-4790K": 432, "Pentium G645": 543, "i5-4690": 674} # <- made up tests
+benchmarkResults = {"i7-4790K": 11197, "Pentium G645": 2598, "i5-4690": 7599} # <- actual benchmarks
+#benchmarkResults = {"i7-4790K": 432, "Pentium G645": 543, "i5-4690": 674} # <- made up tests
 
 
 # End Config
