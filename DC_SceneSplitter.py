@@ -6,10 +6,10 @@ colebob9
 This script takes scene files in a "scenes" directory and splits them up based on any benchmark score.
 
 TODO:
-Add messages for copying files
 Some extra tweaks to calculating SSP if the benchmark scores are too far from each other
 Factor in already rendered SSP
 add `.dump.backup` and `.json.backup` as file types to deal with
+put benchmark results into another config file to use across scripts
 """
 
 import json
@@ -91,7 +91,7 @@ for scene in allScenes:
         sspCalc = sspTarget * value
         benchmarkResultsSSP[key] = int(round(sspCalc, 0))
         
-        
+    # Create SSP Estimations
     print("SSP Estimations: " + str(benchmarkResultsSSP))
     sspAdded = 0
     for key, value in benchmarkResultsSSP.items():
@@ -132,7 +132,7 @@ for scene in allScenes:
                 os.mkdir(workerSceneDir)
                 print("Made " + workerSceneDir + " directory.")
             shutil.copy(scenesDir + scene + f, workerSceneDir)
-            print("Copied: " + scenesDir + scene + f + " to " + workerSceneDir)
+            print("Copied: " + scenesDir + scene + f + " to " + workerSceneDir + "/" + scene + f)
 
         # Edit json files
         workerScene = workerSceneDir + "/" + scene + ".json"
@@ -142,5 +142,5 @@ for scene in allScenes:
             workerJson["sppTarget"] = value
             with open(workerScene, 'w') as json_file:
                 json.dump((workerJson), json_file, sort_keys=False, indent=2)
-            print("Split scene \"" + scene + "\" for worker \"" + key + "\"")
+            print("Split scene \"" + scene + "\" for worker \"" + key + "\"" + "\n")
         
