@@ -124,23 +124,27 @@ for scene in allScenes:
 
     # Copy files
 
-    sceneFilesExts = [".dump", ".foliage", ".grass", ".json", ".octree"]
+    sceneFilesExts = [".dump", ".foliage", ".grass", ".json", ".octree", ".dump.backup", ".json.backup"]
     for key, value in benchmarkResults.items():
         for f in sceneFilesExts:
             workerSceneDir = scenesForWorkersDir + "/" + str(key)
             if not os.path.exists(workerSceneDir):
                 os.mkdir(workerSceneDir)
                 print("Made " + workerSceneDir + " directory.")
-            shutil.copy(scenesDir + scene + f, workerSceneDir)
-            print("Copied: " + scenesDir + scene + f + " to " + workerSceneDir + "/" + scene + f)
+                
+            if not os.path.isfile(scenesDir + scene + f): # check that if backup scene files exist
+                pass
+            else:
+                shutil.copy(scenesDir + scene + f, workerSceneDir)
+                print("Copied: " + scenesDir + scene + f + " to " + workerSceneDir + "/" + scene + f)
 
-        # Edit json files
-        workerScene = workerSceneDir + "/" + scene + ".json"
-        with open(workerScene, 'r') as json_file:
-            workerJson = json.load(json_file, object_pairs_hook=OrderedDict)
-            
-            workerJson["sppTarget"] = value
-            with open(workerScene, 'w') as json_file:
-                json.dump((workerJson), json_file, sort_keys=False, indent=2)
-            print("Split scene \"" + scene + "\" for worker \"" + key + "\"" + "\n")
+    # Edit json files
+    workerScene = workerSceneDir + "/" + scene + ".json"
+    with open(workerScene, 'r') as json_file:
+        workerJson = json.load(json_file, object_pairs_hook=OrderedDict)
+        
+        workerJson["sppTarget"] = value
+        with open(workerScene, 'w') as json_file:
+            json.dump((workerJson), json_file, sort_keys=False, indent=2)
+        print("Split scene \"" + scene + "\" for worker \"" + key + "\"" + "\n")
         
