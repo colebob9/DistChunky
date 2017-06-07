@@ -3,18 +3,16 @@ DistChunky SceneSplitter
 Python 3
 colebob9
 
-This script takes scene files in a "scenes" directory and splits them up based on any benchmark score.
+This script takes scene files in a "scenes" directory and splits them up based on benchmark scores.
 
 TODO:
 Some extra tweaks to calculating SSP if the benchmark scores are too far from each other
 Factor in already rendered SSP
-add `.dump.backup` and `.json.backup` as file types to deal with
 put benchmark results into another config file to use across scripts
 """
 
 import json
 import math
-import operator
 import os, shutil
 from collections import OrderedDict
 

@@ -19,8 +19,8 @@ deleteScenesForWorkerDir = True
 
 # Config End
 
-sceneFilesExts = [".dump", ".foliage", ".grass", ".json", ".octree"]
-scenesDir = "DC_ScenesForWorkers" + "/" + workerID
+sceneFilesExts = [".dump", ".foliage", ".grass", ".json", ".octree", ".dump.backup", ".json.backup"]
+scenesDir = "DC_ScenesForWorkers" + "/" + workerID + "/"
 
 chunkySceneFilePath = chunkyFilesPath + "/" + "scenes"
 
@@ -44,8 +44,13 @@ if not os.path.exists(chunkySceneFilePath):
     
 for scene in allScenes:
     for ext in sceneFilesExts:
-        shutil.copy(scenesDir + "/" + scene + ext, chunkyFilesPath + "/" + "scenes" + "/" + scene + ext)
+            if not os.path.isfile(scenesDir + scene + ext): # check that if backup scene files exist
+                pass
+            else:
+                shutil.copy(scenesDir + scene + ext, chunkyFilesPath + "/" + "scenes" + "/" + scene + ext)
+                print("Copied: " + scenesDir + scene + ext + " to " + chunkyFilesPath + "/" + "scenes" + "/" + scene + ext)
 
+    # Start Rendering Process
     print('')
     print("Now rendering: " + scene)
     print('')
